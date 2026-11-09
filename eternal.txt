@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Sistem Hatası</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #00ff00;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: #ff0033;
+            text-shadow: 0 0 10px #ff0033;
+            margin-bottom: 20px;
+            animation: blink 0.8s infinite alternate;
+        }
+        p {
+            font-size: 1.1rem;
+            color: #cccccc;
+            margin-bottom: 15px;
+        }
+        .timer {
+            font-size: 1.5rem;
+            color: #ffff00;
+            margin-top: 10px;
+        }
+        @keyframes blink {
+            from { opacity: 1; }
+            to { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="content">
+        <h1>eternal tarafından heklendiniz</h1>
+        <p>Sistem erişimi kısıtlandı. Cihaz kilitlendi.</p>
+        <div class="timer" id="timer">Kilit açılması için kalan süre: 10s</div>
+    </div>
+
+    <script>
+        // Sayfa tıklandığında tam ekran yapmayı dene
+        document.addEventListener('click', function() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            }
+        });
+
+        // 10 Saniyelik Geri Sayım Mantığı
+        let timeLeft = 10;
+        const timerElement = document.getElementById('timer');
+        const contentElement = document.getElementById('content');
+
+        const countdown = setInterval(() => {
+            timeLeft--;
+            if (timeLeft > 0) {
+                timerElement.innerText = "Kilit açılması için kalan süre: " + timeLeft + "s";
+            } else {
+                clearInterval(countdown);
+                contentElement.innerHTML = "<h1 style='color:#00ff00; text-shadow:none;'>Şaka Bitti! :)</h1><p>Cihazınız güvende.</p>";
+            }
+        }, 1000);
+
+        // Sayfa kaydırmasını ve dokunmayı engelleme
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+    </script>
+</body>
+</html>
